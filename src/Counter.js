@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
-//Import { Connect } from 'react-redux' so we can connect this component to redux
-import {Connect} from 'react-redux';
+//Import { connect } from 'react-redux' so we can connect this component to redux
+import {connect} from 'react-redux';
 
 //Import action creators from redux
 import {increment, decrement} from './ducks/counter';
@@ -9,12 +9,12 @@ import {increment, decrement} from './ducks/counter';
 class Counter extends Component {
   render() {
     //Destruct the action creators from props
-    const {increment, decrement} = this.props;
+    const {currentValue, increment, decrement} = this.props;
 
     return (
       <div className="app">
         <section className="counter">
-          <h1 className="counter__current-value">{0}</h1>
+          <h1 className="counter__current-value">{currentValue}</h1>
           <div className="counter__button-wrapper">
             <button
               className="counter__button increment-one"
@@ -72,4 +72,4 @@ function mapStateToProps(state){
 }
 
 //Export the component wrapper by connect
-export default Connect(mapStateToProps, {increment, decrement})(Counter);
+export default connect(mapStateToProps, {increment, decrement})(Counter);

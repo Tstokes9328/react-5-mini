@@ -9,6 +9,7 @@ const DECREMENT = 'DECREMENT';
 
 //Action Creators
 export function increment(amount){
+    console.log(amount)
     return {amount, type: INCREMENT};
 };
 
@@ -20,9 +21,9 @@ export function decrement(amount){
 export default function counter(state = initialState, action){
     switch(action.type){
         case INCREMENT:
-            return Object.assign({}, state.currentValue += action.amount);
+            return {currentValue: state.currentValue + action.amount};
         case DECREMENT:
-            return Object.assign({}, state.currentValue -= action.amount);
+            return {currentValue: state.currentValue - action.amount};
         default:
             return state;
     }
