@@ -4,12 +4,20 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 
 //Import action creators from redux
-import {increment, decrement} from './ducks/counter';
+import {increment, decrement, undo, redo} from './ducks/counter';
 
 class Counter extends Component {
   render() {
     //Destruct the action creators from props
-    const {currentValue, increment, decrement} = this.props;
+    const {
+      currentValue, 
+      previousValues,
+      futureValues,
+      increment,
+      decrement,
+      redo,
+      undo
+    } = this.props;
 
     return (
       <div className="app">
@@ -43,15 +51,15 @@ class Counter extends Component {
             <br />
             <button
               className="counter__button undo"
-              disabled={true}
-              onClick={() => null}
+              disabled={previousValues.length === 0}
+              onClick={() => undo()}
             >
               Undo
             </button>
             <button
               className="counter__button redo"
-              disabled={true}
-              onClick={() => null}
+              disabled={futureValues.length === 0}
+              onClick={() => redo()}
             >
               Redo
             </button>
@@ -72,4 +80,4 @@ function mapStateToProps(state){
 }
 
 //Export the component wrapper by connect
-export default connect(mapStateToProps, {increment, decrement})(Counter);
+export default connect(mapStateToProps, {increment, decrement, undo, redo})(Counter);
